@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>oldmachines — interactive teardowns of the machines we grew up with</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%237d5cf0%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%276%27 fill=%27none%27 stroke=%27%230c0a13%27 stroke-width=%273%27/%3E%3C/svg%3E">
+<meta name="description" content="The oldmachines collection: explorable, hands-on teardowns of classic game consoles — every subsystem a playable course you can hear, drag and toggle.">
+<style>
+  :root{
+    --ground:#0c0a13; --ground-2:#100d19; --panel:#16121f; --panel-2:#1d1830;
+    --line:#2c2542; --line-2:#392f57; --ink:#ece8f6; --ink-2:#b7afce; --muted:#877f9e;
+    --violet:#a884ff; --violet-d:#7d5cf0; --cyan:#45e4d1; --magenta:#ff5f9e; --amber:#ffb14e;
+    --radius:14px; --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--ground);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(1200px 700px at 78% -8%,rgba(125,92,240,.16),transparent 60%),
+      radial-gradient(900px 600px at 0% 100%,rgba(69,228,209,.06),transparent 55%);
+    background-attachment:fixed;min-height:100vh}
+  a{color:var(--violet);text-decoration:none}
+  a:hover{text-decoration:underline;text-underline-offset:3px}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+  header.top{display:flex;align-items:center;gap:12px;padding:22px 0}
+  .logo{width:34px;height:34px;border-radius:8px;
+    background:radial-gradient(circle at 30% 30%,var(--violet),var(--violet-d) 55%,#3a2a80);
+    box-shadow:0 0 22px -4px rgba(168,132,255,.55),inset 0 0 0 1px rgba(255,255,255,.12);position:relative}
+  .logo::after{content:"";position:absolute;inset:11px;border-radius:50%;border:2px solid rgba(12,10,19,.75)}
+  .brandline{font:600 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .brandline b{color:var(--ink);font-weight:700}
+  .hero{padding:52px 0 40px;border-bottom:1px solid var(--line)}
+  .eyebrow{font:600 11px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);
+    display:inline-flex;align-items:center;gap:9px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--cyan);opacity:.7}
+  h1{font:800 clamp(36px,7vw,68px)/1.02 var(--sans);letter-spacing:-.02em;margin:18px 0 0;text-wrap:balance}
+  h1 .grad{background:linear-gradient(100deg,var(--cyan),var(--violet) 55%,var(--magenta));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{font-size:18.5px;color:var(--ink-2);max-width:62ch;margin:20px 0 0}
+  h2.sh{font:700 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:44px 0 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:20px 0 0}
+  .card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:22px;transition:transform .14s,border-color .14s,background .14s}
+  a.card:hover{transform:translateY(-3px);border-color:var(--line-2);background:var(--panel-2);text-decoration:none}
+  .card .year{font:600 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
+  .card h3{font:800 26px/1.15 var(--sans);letter-spacing:-.01em;margin:10px 0 8px;color:var(--ink)}
+  .card p{font-size:13.5px;color:var(--muted);margin:0 0 14px;flex:1}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .chip{font:600 10.5px/1 var(--mono);letter-spacing:.06em;color:var(--ink-2);
+    background:var(--panel-2);border:1px solid var(--line);border-radius:999px;padding:5px 9px}
+  .card .status{font:600 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:7px}
+  .card .status.ready{color:var(--cyan)} .card .status.soon{color:var(--muted)}
+  .card .status .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+  .card.disabled{opacity:.55}
+  .card.disabled:hover{transform:none}
+  .how{margin:44px 0 0;padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+  .how h2{font:700 15px/1.3 var(--sans);margin:0 0 8px}
+  .how p{font-size:14px;color:var(--ink-2);margin:0;max-width:74ch}
+  footer{padding:40px 0 56px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:48px}
+  footer a{color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="logo" aria-hidden="true"></div>
+    <div class="brandline"><b>oldmachines</b> · the collection</div>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">Interactive teardowns · one machine at a time</span>
+    <h1>The machines we <span class="grad">grew up with</span>, opened up.</h1>
+    <p class="lede">
+      Explorable, hands-on explanations of how classic game consoles actually
+      worked. Not spec sheets: every subsystem is a playable course you can
+      hear, drag and toggle, built as plain, dependency-free web pages — and
+      every course ends inside the emulator that keeps the machine alive.
+      More machines land over time.
+    </p>
+  </section>
+
+  <h2 class="sh">The machines</h2>
+  <div class="grid">
+
+    <a class="card" href="/supernintendo/">
+      <span class="year">Nintendo · 1990</span>
+      <h3>Super Nintendo</h3>
+      <p>The 16-bit machine: a 65816 with banked memory and DMA tricks, the
+         two-chip PPU with Mode 7, Sony's eight-voice S-DSP, and cartridges
+         that smuggled whole co-processors past the CPU.</p>
+      <div class="chips">
+        <span class="chip">CPU · 65816</span><span class="chip">Graphics · PPU</span>
+        <span class="chip">Audio · S-DSP</span><span class="chip">Game Pak</span>
+      </div>
+      <span class="status ready"><span class="dot"></span>Ready · 4 courses · 60 modules</span>
+    </a>
+
+    <a class="card" href="/gamecube/">
+      <span class="year">Nintendo · 2001</span>
+      <h3>GameCube</h3>
+      <p>The little purple box: the PowerPC Gekko with paired singles, the
+         Flipper GPU and its TEV pipeline, a programmable 16-bit audio DSP,
+         and the deliberately off-spec 8&nbsp;cm miniDVD drive.</p>
+      <div class="chips">
+        <span class="chip">CPU · Gekko</span><span class="chip">Graphics · Flipper</span>
+        <span class="chip">Audio · DSP</span><span class="chip">Disc drive</span>
+      </div>
+      <span class="status ready"><span class="dot"></span>Ready · 4 courses · 60 modules</span>
+    </a>
+
+    <div class="card disabled" aria-disabled="true">
+      <span class="year">Sometime soon</span>
+      <h3>The next machine</h3>
+      <p>The collection grows one console at a time — fundamentals from zero,
+         the real silicon, and how emulators bring it back.</p>
+      <div class="chips">
+        <span class="chip">?</span><span class="chip">?</span><span class="chip">?</span>
+      </div>
+      <span class="status soon"><span class="dot"></span>In the workshop</span>
+    </div>
+
+  </div>
+
+  <div class="how">
+    <h2>How every course works</h2>
+    <p>
+      Each machine is split into subsystems — CPU, graphics, audio, storage —
+      and each subsystem is a self-contained course in three parts:
+      <strong>Part I</strong> teaches the field's fundamentals from absolute
+      zero, <strong>Part II</strong> tears down that machine's take on it, and
+      <strong>Part III</strong> shows how an emulator reproduces it. Every
+      module ships interactive labs; everything is drawn and synthesised live
+      in your browser. No build steps, no frameworks, no tracking, and no
+      copyrighted game assets — ever.
+    </p>
+  </div>
+
+  <footer>
+    <p>
+      <a href="https://github.com/oldmachines">oldmachines on GitHub</a> —
+      independent, non-commercial educational projects, not affiliated with or
+      endorsed by any console manufacturer. Technical content is grounded in
+      the open-source emulators that document these machines best:
+      <a href="https://github.com/dolphin-emu/dolphin">Dolphin</a>,
+      <a href="https://github.com/bsnes-emu/bsnes">bsnes</a> and
+      <a href="https://github.com/higan-emu/higan">higan</a>.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
