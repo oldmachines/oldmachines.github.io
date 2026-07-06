@@ -8,6 +8,8 @@ and publishes beneath it:
 
 | Machine | Year | Site | Repository |
 | --- | --- | --- | --- |
+| Apple II | 1977 | [/apple2/](https://oldmachines.github.io/apple2/) | [`apple2`](https://github.com/oldmachines/apple2) |
+| Sega Genesis | 1988 | [/genesis/](https://oldmachines.github.io/genesis/) | [`genesis`](https://github.com/oldmachines/genesis) |
 | Super Nintendo | 1990 | [/supernintendo/](https://oldmachines.github.io/supernintendo/) | [`supernintendo`](https://github.com/oldmachines/supernintendo) |
 | GameCube | 2001 | [/gamecube/](https://oldmachines.github.io/gamecube/) | [`GameCube`](https://github.com/oldmachines/GameCube) |
 

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>oldmachines — interactive teardowns of the machines we grew up with</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%237d5cf0%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%276%27 fill=%27none%27 stroke=%27%230c0a13%27 stroke-width=%273%27/%3E%3C/svg%3E">
-<meta name="description" content="The oldmachines collection: explorable, hands-on teardowns of classic game consoles — every subsystem a playable course you can hear, drag and toggle.">
+<meta name="description" content="The oldmachines collection: explorable, hands-on teardowns of classic game consoles and home computers — every subsystem a playable course you can hear, drag and toggle.">
 <style>
   :root{
     --ground:#0c0a13; --ground-2:#100d19; --panel:#16121f; --panel-2:#1d1830;
@@ -76,8 +76,9 @@
     <span class="eyebrow">Interactive teardowns · one machine at a time</span>
     <h1>The machines we <span class="grad">grew up with</span>, opened up.</h1>
     <p class="lede">
-      Explorable, hands-on explanations of how classic game consoles actually
-      worked. Not spec sheets: every subsystem is a playable course you can
+      Explorable, hands-on explanations of how classic game consoles — and the
+      home computers beside them — actually worked. Not spec sheets: every
+      machine is a set of playable courses you can
       hear, drag and toggle, built as plain, dependency-free web pages — and
       every course ends inside the emulator that keeps the machine alive.
       More machines land over time.
@@ -86,6 +87,36 @@
 
   <h2 class="sh">The machines</h2>
   <div class="grid">
+
+    <a class="card" href="/apple2/">
+      <span class="year">Apple · 1977</span>
+      <h3>Apple II</h3>
+      <p>The home computer that started it all: the MOS 6502, a memory map
+         wired straight to the screen through soft switches, hi-res and lo-res
+         graphics, speaker-clicked sound, Applesoft BASIC and hand-written 6502
+         assembly.</p>
+      <div class="chips">
+        <span class="chip">CPU · 6502</span><span class="chip">Memory map</span>
+        <span class="chip">Graphics &amp; sound</span><span class="chip">Applesoft BASIC</span>
+        <span class="chip">6502 asm</span>
+      </div>
+      <span class="status ready"><span class="dot"></span>Ready · 6 lectures · 17 exercises</span>
+    </a>
+
+    <a class="card" href="/genesis/">
+      <span class="year">Sega · 1988</span>
+      <h3>Sega Genesis</h3>
+      <p>The Mega Drive: two CPUs — a Motorola 68000 and a Z80 sidekick — the
+         VDP's two scrolling planes and sprite engine, the snarling Yamaha
+         YM2612 FM synth beside the SN76489 PSG, and ROM cartridges with
+         lock-on tricks.</p>
+      <div class="chips">
+        <span class="chip">CPU · 68000</span><span class="chip">Graphics · VDP</span>
+        <span class="chip">Audio · YM2612</span><span class="chip">Cartridge</span>
+        <span class="chip">Homebrew</span>
+      </div>
+      <span class="status ready"><span class="dot"></span>Ready · 5 courses · 73 modules</span>
+    </a>
 
     <a class="card" href="/supernintendo/">
       <span class="year">Nintendo · 1990</span>
@@ -117,7 +148,7 @@
     <div class="card disabled" aria-disabled="true">
       <span class="year">Sometime soon</span>
       <h3>The next machine</h3>
-      <p>The collection grows one console at a time — fundamentals from zero,
+      <p>The collection grows one machine at a time — fundamentals from zero,
          the real silicon, and how emulators bring it back.</p>
       <div class="chips">
         <span class="chip">?</span><span class="chip">?</span><span class="chip">?</span>
@@ -148,8 +179,11 @@
       endorsed by any console manufacturer. Technical content is grounded in
       the open-source emulators that document these machines best:
       <a href="https://github.com/dolphin-emu/dolphin">Dolphin</a>,
-      <a href="https://github.com/bsnes-emu/bsnes">bsnes</a> and
-      <a href="https://github.com/higan-emu/higan">higan</a>.
+      <a href="https://github.com/bsnes-emu/bsnes">bsnes</a>,
+      <a href="https://github.com/higan-emu/higan">higan</a>,
+      <a href="https://github.com/libretro/Genesis-Plus-GX">Genesis&nbsp;Plus&nbsp;GX</a>,
+      <a href="https://github.com/libretro/blastem">BlastEm</a> and
+      <a href="https://github.com/AppleWin/AppleWin">AppleWin</a>.
     </p>
   </footer>
 
